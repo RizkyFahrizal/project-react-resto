@@ -1,18 +1,21 @@
-import React, { useState, useEffect } from "react";
+import { useState } from "react";
 import { link } from "../Axios/link";
 import { useForm } from "react-hook-form";
+import useGet from "../Hook/useGet";
 
 const Kategori = () => {
-  const [isi, setIsi] = useState([]);
+  // const [isi, setIsi] = useState([]);
   const [pesan, setPesan] = useState("");
   const [idkategori, setIdkategori] = useState("");
   const [pilihan, setPilihan] = useState(true);
   const { register, handleSubmit, reset, errors, setValue } = useForm();
 
-  async function fetchdata() {
-    const request = await link.get("/kategori");
-    setIsi(request.data);
-  }
+  // async function fetchdata() {
+  //   const request = await link.get("/kategori");
+  //   setIsi(request.data);
+  // }
+  const [isi] = useGet("/kategori");
+
   function simpan(data) {
     if (pilihan) {
       link.post("/kategori", data).then((res) => setPesan(res.data.pesan));
@@ -23,7 +26,7 @@ const Kategori = () => {
       setPilihan(true);
     }
     reset();
-    fetchdata();
+    // fetchdata();
   }
 
   async function hapus(id) {
@@ -32,7 +35,6 @@ const Kategori = () => {
       setPesan(res.data.pesan);
     }
   }
-  fetchdata();
 
   async function showData(id) {
     const res = await link.get("/kategori/" + id);
@@ -44,9 +46,10 @@ const Kategori = () => {
     setPilihan(false);
   }
 
-  useEffect(() => {
-    fetchdata();
-  }, []);
+  // fetchdata();
+  // useEffect(() => {
+  //   fetchdata();
+  // }, [isi]);
   let no = 1;
   return (
     <div>
@@ -88,11 +91,7 @@ const Kategori = () => {
             </div>
             <div className="mb-3"></div>
             <div>
-              <input
-                type="submit"
-                className="btn btn-primary"
-                name="keterangan"
-              />
+              <input type="submit" className="btn btn-primary" name="submit" />
             </div>
           </form>
         </div>
