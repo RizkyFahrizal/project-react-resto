@@ -89,8 +89,7 @@ const Kategori = () => {
                 ref={register}
               />
             </div>
-            <div className="mb-3"></div>
-            <div>
+            <div className="mb-3">
               <input type="submit" className="btn btn-primary" name="submit" />
             </div>
           </form>
