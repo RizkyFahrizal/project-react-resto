@@ -1,13 +1,37 @@
 import React from "react";
+import { useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const Nav = () => {
+  const history = useHistory();
+
+  function hapus() {
+    sessionStorage.clear();
+    history.push("/login");
+  }
+
   return (
-    <div>
+    <div className="mt-2 mb-2">
       <nav className="navbar navbar-light bg-light">
         <div className="container-fluid">
-          <a className="navbar-brand" href="#">
-            Restoran Arab
-          </a>
+          <Link to="/admin ">
+            <a className="navbar-brand">Dashboard</a>
+          </Link>
+          <li className="nav-item list-unstyled">
+            Email : {sessionStorage.getItem("email")}
+          </li>
+          <li className="nav-item list-unstyled">
+            Level : {sessionStorage.getItem("level")}
+          </li>
+          <form className="d-flex">
+            <button
+              onClick={hapus}
+              className="btn btn-outline-success"
+              type="submit"
+            >
+              Logout
+            </button>
+          </form>
         </div>
       </nav>
     </div>
